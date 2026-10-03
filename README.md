@@ -78,3 +78,5 @@ ConcreteGuard is evaluated not just on standard accuracy, but specifically on a 
 - Shadows (high-contrast edges)
 
 The decision threshold is optimized via cost-minimization, assuming a missed crack (false negative) is 10x more costly than an unnecessary inspection (false positive).
+
+# CSCI_final
