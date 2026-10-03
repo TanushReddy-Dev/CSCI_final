@@ -1,0 +1,2 @@
+accuracy,precision,recall,f1_score,threshold,confusion_matrix,total_samples,false_positives,false_negatives
+0.7063925855513308,0.3137254901960784,0.7912087912087912,0.44929797191887677,0.09000000000000001,"{'TN': 4937, 'FP': 2205, 'FN': 266, 'TP': 1008}",8416,2205,266

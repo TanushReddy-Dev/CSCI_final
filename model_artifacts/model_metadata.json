@@ -1,0 +1,36 @@
+{
+  "model_name": "ConcreteGuard_MobileNetV2",
+  "architecture": "MobileNetV2 + GlobalAvgPool + Dropout + Dense(1, sigmoid)",
+  "input_shape": [
+    224,
+    224,
+    3
+  ],
+  "output": "binary sigmoid (crack probability)",
+  "class_names": [
+    "no_crack",
+    "crack"
+  ],
+  "training_date": "2026-10-03T09:58:16.746216",
+  "training_args": {
+    "data_root": "/content/data",
+    "zip_path": "/content/drive/MyDrive/SDNET2018.zip",
+    "output_root": "/content/outputs",
+    "epochs": 4,
+    "batch_size": 64,
+    "head_lr": 0.001,
+    "finetune_lr": 1e-05,
+    "head_epochs": 2,
+    "cfn": 10.0,
+    "cfp": 1.0,
+    "uncertainty_margin": 0.1,
+    "train_baseline": false,
+    "steps_per_epoch": 100,
+    "validation_steps": 30,
+    "max_samples": null,
+    "quick_run": true
+  },
+  "framework": "TensorFlow/Keras",
+  "intended_use": "Visual screening aid for concrete surface crack detection",
+  "not_intended_for": "Structural safety assessment or engineering decisions"
+}

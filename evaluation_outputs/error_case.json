@@ -1,0 +1,11 @@
+{
+  "image_path": "/content/data/test/no_crack/030-95.jpg",
+  "ground_truth": "no_crack",
+  "predicted": "crack",
+  "probability": 0.9965713024139404,
+  "threshold": 0.09000000000000001,
+  "error_type": "false_positive",
+  "explanation": "This image is a FALSE POSITIVE. The model predicted 'crack' (probability 0.997) but the ground truth is 'no_crack'. The Grad-CAM heatmap shows the model focused on regions that visually resemble crack-like patterns \u2014 possibly high-contrast edges, texture boundaries, or shadow lines. The likely cause is that these local texture features share visual similarity with cracks in the training data. The correct action is to route this case for manual expert review rather than treating the model's output as a structural conclusion.",
+  "gradcam_path": "error_case_gradcam.png",
+  "original_path": "error_case_original.png"
+}

@@ -1,0 +1,8 @@
+{
+  "threshold": 0.09,
+  "uncertainty_margin": 0.03,
+  "C_FN": 10.0,
+  "C_FP": 1.0,
+  "selected_on": "validation_set",
+  "selection_method": "cost_minimization"
+}

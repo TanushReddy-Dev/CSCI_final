@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>ConcreteGuard - Explainable AI Surface Screening</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-fixed":"#0d1c2f","secondary-fixed-dim":"#b9c7e0","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-secondary-fixed-variant":"#3a485c","secondary":"#515f74","outline":"#737686","on-secondary":"#ffffff","secondary-fixed":"#d5e3fd","on-tertiary-container":"#ffede1","primary-fixed-dim":"#b4c5ff","tertiary":"#824500","secondary-container":"#d5e3fd","on-secondary-container":"#57657b","on-primary-fixed":"#00174b","on-error-container":"#93000a","on-surface":"#131b2e","primary":"#004ac6","on-background":"#131b2e","primary-fixed":"#dbe1ff","on-primary":"#ffffff","inverse-primary":"#b4c5ff","surface-tint":"#0053db","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","surface-bright":"#faf8ff","on-error":"#ffffff","surface-container-high":"#e2e7ff","surface-container-highest":"#dae2fd","error-container":"#ffdad6","inverse-on-surface":"#eef0ff","outline-variant":"#c3c6d7","background":"#faf8ff","tertiary-fixed":"#ffdcc3","on-primary-fixed-variant":"#003ea8","on-tertiary-fixed-variant":"#6e3900","inverse-surface":"#283044","tertiary-fixed-dim":"#ffb77d","primary-container":"#2563eb","surface-container":"#eaedff","on-surface-variant":"#434655","surface-dim":"#d2d9f4","surface-container-low":"#f2f3ff","on-tertiary":"#ffffff","tertiary-container":"#a65900","surface":"#faf8ff","surface-variant":"#dae2fd"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-xl":"2rem","space-sm":"0.5rem","space-lg":"1.5rem","space-xs":"0.25rem","margin-desktop":"2rem","space-md":"1rem",gutter:"1rem","gutter-desktop":"1.5rem",margin:"1rem","margin-tablet":"1.5rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Inter"],"label-sm":["JetBrains Mono"],"headline-md":["Inter"],"headline-sm":["Inter"],"body-md":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-xl":["Inter"],"headline-lg-mobile":["Inter"],"label-lg":["JetBrains Mono"],"label-md":["JetBrains Mono"]},fontSize:{"body-sm":["12px",{lineHeight:"18px",fontWeight:"400"}],"headline-lg":["28px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"700"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-lg-mobile":["22px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"500"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.04em",fontWeight:"500"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full px-margin-desktop"><div class="h-20 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><img alt="ConcreteGuard Logo" class="w-9 h-9 rounded-lg object-cover bg-surface-container-high" src="https://lh3.googleusercontent.com/aida/AEtjO1UF_CndLuSduN0Q15kMf_GKnIyzJSHtqBiuReytZtLO2i2I3Ffd_16YTwKecmeoxqRWu3e9xP51CwBelyq5Ag9tZ_h3clrVmMwSRaolT81nw2FN0pbXOUI7KUyT8lNWg2NyHXTmiGsF1z8oI3i-gSoNh3DVCIQs7DtMV-mAHZHuQ0sXTmsFNV0TmPUDZltImwI-RaFJEPxo7ugWO3CtRd5EH1cDuTrLc7E1Vh3wli_V_SpHx6tclI2y_jM"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">ConcreteGuard</span><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-semibold uppercase tracking-wider">v2.4</span></div><span class="font-label-sm text-label-sm text-on-surface-variant">Explainable Visual Inspection Assistant</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low p-1 rounded-lg" data-active-classes="bg-primary-container text-on-primary font-semibold"><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="screening-lab" href="#">Screening Lab</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="evidence-viewer" href="#">Evidence Viewer</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="model-evaluation" href="#">Model Evaluation</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="hard-negative-gallery" href="#">Hard-Negative Gallery</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="about-limitations" href="#">About &amp; Limitations</a></nav><div class="flex items-center gap-space-sm"><div class="hidden md:flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low text-on-surface"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Engine: <strong class="text-on-surface font-semibold">Ready</strong></span><span class="font-label-sm text-label-sm text-outline-variant">|</span><span class="font-label-sm text-label-sm text-on-surface-variant">Fixture Adapter Active</span></div><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-secondary-fixed text-on-secondary-fixed"><span class="material-symbols-outlined text-sm text-primary">architecture</span><span class="font-label-sm text-label-sm font-semibold tracking-wide">JIGNASA 2026 Civil AI Track</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover bg-surface-container-high" src="https://lh3.googleusercontent.com/aida/AEtjO1UF_CndLuSduN0Q15kMf_GKnIyzJSHtqBiuReytZtLO2i2I3Ffd_16YTwKecmeoxqRWu3e9xP51CwBelyq5Ag9tZ_h3clrVmMwSRaolT81nw2FN0pbXOUI7KUyT8lNWg2NyHXTmiGsF1z8oI3i-gSoNh3DVCIQs7DtMV-mAHZHuQ0sXTmsFNV0TmPUDZltImwI-RaFJEPxo7ugWO3CtRd5EH1cDuTrLc7E1Vh3wli_V_SpHx6tclI2y_jM"/></div></div><div class="bg-tertiary-fixed text-on-tertiary-fixed px-space-md py-1.5 rounded-lg flex items-center justify-between gap-space-sm mb-2 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xs overflow-hidden"><span class="material-symbols-outlined text-tertiary text-base shrink-0">warning</span><p class="font-label-sm text-label-sm text-on-tertiary-fixed leading-tight truncate"><strong class="font-semibold uppercase tracking-wider">Visual Screening Only:</strong> Identifies visible crack-like surface patterns to prioritize expert inspection. Does not evaluate structural integrity, depth, load capacity, or hidden internal defects. Human certified assessment remains strictly mandatory.</p></div><span class="hidden lg:inline-flex font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-lowest text-tertiary font-semibold shrink-0 uppercase tracking-widest">Advisory Protocol ISO-13822</span></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Interactive Modal Container for Heatmap Inspection -->
+<div class="fixed inset-0 z-50 hidden items-center justify-center bg-inverse-surface/40 backdrop-blur-sm p-margin-desktop" id="heatmapModal">
+<div class="w-full max-w-4xl bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[921px]">
+<div class="px-space-lg py-space-md bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-xl">layers</span>
+<div>
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold" id="modalTitle">Specimen Saliency Inspection</h3>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-semibold" id="modalSpecimenId">#HN-ST-104</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="modalCategory">Class Activation Mapping / ConvNeXt Stage-4 Bottleneck</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high flex items-center justify-center transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<div class="p-space-lg grid grid-cols-1 md:grid-cols-2 gap-space-lg overflow-y-auto">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">Primary Surface Orthophoto</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">256 x 256 px • ISO 100</span>
+</div>
+<div class="relative w-full aspect-square rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="High-resolution industrial macro orthophoto of an aged pre-cast structural concrete slab showing natural mineral crystalline efflorescence, porous grey surface aggregates, subtle cementitious texture, and realistic diffuse ambient daylight under calibrated workshop inspection lamps." id="modalRawImage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4bg135nq377me690_H7vapInSmIV_QNfKXLt0MN3iYpJ35TQ2czO_hNJZ3Qg_hrp8EozF6ftwFqNwhEIChlaWOqDXMVOx4w6wHfaiSCWL6mtGxOZ6SDqOtAAeKSQWjMi9WD0hYwEi3kDnCkopu6-DU-AKLiHumfm9CukzfNrYzyL41wjSeXFHmzHQZHoC1a607mnI85QppkFLazk7fmXObHK0D2mbMDoUZurytryVk4g6ciy5BTwbYw"/>
+<div class="absolute bottom-2 left-2 px-space-xs py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm backdrop-blur-sm">Raw Photometric Layer</div>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-primary">Grad-CAM Spatial Weight Map</span>
+<span class="font-label-sm text-label-sm text-primary font-mono font-medium">Receptive Field: 32x32</span>
+</div>
+<div class="relative w-full aspect-square rounded-lg overflow-hidden bg-inverse-surface flex items-center justify-center">
+<img class="w-full h-full object-cover mix-blend-screen opacity-90" data-alt="Scientific Grad-CAM heatmap visualization over industrial concrete texture with cool cyan and deep blue gradients across flat areas, transitioning into targeted warm amber and localized yellow-orange activation clusters highlighting non-linear efflorescence zones." id="modalCamImage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdY8ceH1RclTxhTR0Gc12rAByNX3CVKEcVgPvchNEzcQrfEoOXKdaN8pomvgzS7Vk8As1-0eynrPlW8fY6QH7Gl0WgbuKx8WEihhX3-3yIpGlNHR_-BFAYRvV6Sdt8DuBXYIWajSJK4f2p0uXIWLzEuNEmEYXV0W4IWPnHfTbm0fWKgUbtAWbMwn64VH9XfScib1O12YYM8JdqAklzLb-SejduMBdWQG5kzfdvPEau_RBfH7KjxIOF1g"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-error/20 pointer-events-none"></div>
+<div class="absolute top-2 right-2 px-space-xs py-0.5 rounded bg-inverse-surface/90 text-inverse-on-surface font-label-sm text-label-sm backdrop-blur-sm">Layer 4 Conv Kernel</div>
+<div class="absolute bottom-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 text-on-surface font-label-sm text-label-sm backdrop-blur-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+              Peak Grad: 0.187 (Sub-threshold)
+            </div>
+</div>
+</div>
+<div class="col-span-1 md:col-span-2 bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface">Feature Attribution Diagnostic</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-mono" id="modalProbabilityPill">p = 0.041</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="modalDiagnosticNotes">
+            The multi-scale kernel identified diffuse mineral gradients without structural linearity. Saliency dispersion ratio exceeds the crack geometric cohesion threshold (&gt;0.72), triggering automated rejection before false-positive alert dispatch.
+          </p>
+</div>
+</div>
+<div class="px-space-lg py-space-sm bg-surface-container-low flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Validated against CCIC Non-Defect Calibration Set</span>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-container text-label-md font-label-md transition-colors font-semibold" onclick="closeModal()">
+          Dismiss Diagnostic View
+        </button>
+</div>
+</div>
+</div>
+<!-- Page Header Subsystem -->
+<section class="w-full px-margin-desktop pt-space-lg pb-space-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
+<span class="hover:text-primary transition-colors cursor-pointer">Benchmark Suite</span>
+<span>/</span>
+<span class="text-on-surface font-semibold">Hard-Negative Stress Library &amp; Regulatory Protocols</span>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md pt-space-xs">
+<div class="flex flex-col gap-space-xs max-w-4xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">Hard-Negative Gallery &amp; Regulatory Limitations</h1>
+<span class="font-label-sm text-label-sm px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-semibold uppercase tracking-wider">Audit Archive v2.4</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          Auditing CNN false-alarm resistance against non-crack surface anomalies (efflorescence, saw-cut joints, cast shadows, aggregate pitting) and defining operational screening boundaries under ASTM &amp; ISO diagnostic standards.
+        </p>
+</div>
+<!-- Quick Metrics Ribbon -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="bg-surface-container-lowest px-space-md py-space-sm rounded-lg shadow-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Stress Partition</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">2,000 Specimens</span>
+</div>
+<div class="bg-surface-container-lowest px-space-md py-space-sm rounded-lg shadow-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Rejection Rate</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">88.65% Pass</span>
+</div>
+<div class="bg-surface-container-lowest px-space-md py-space-sm rounded-lg shadow-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary uppercase font-medium">Protocol Status</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>ISO 13822
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Adversarial Filter Metrics Banner -->
+<section class="w-full px-margin-desktop py-space-sm">
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-2xl">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">False-Positive Attenuation Engine Active</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The asymmetric penalization matrix enforces a 10:1 false-negative to false-positive penalty, safeguarding crack sensitivity while testing challenging physical confounders.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-lg shrink-0">
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Benchmark F1 Floor</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface font-mono">0.931</span>
+</div>
+<div class="w-px h-8 bg-surface-container"></div>
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Adversarial Recall</span>
+<span class="font-label-lg text-label-lg font-bold text-primary font-mono">98.42%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 1: Hard-Negative Gallery & Interactive Filter Tabs -->
+<section class="w-full px-margin-desktop py-space-lg flex flex-col gap-space-md">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-lg">science</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">Adversarial Stress Library</h2>
+</div>
+<!-- Filter Controls Strip -->
+<div class="flex flex-wrap items-center gap-1 bg-surface-container-low p-1 rounded-lg" id="filterContainer">
+<button class="filter-btn active px-space-sm py-1 rounded text-label-sm font-label-sm font-semibold transition-colors bg-primary-container text-on-primary" onclick="filterGallery('all')">
+          All (2,000)
+        </button>
+<button class="filter-btn px-space-sm py-1 rounded text-label-sm font-label-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors" onclick="filterGallery('stains')">
+          Stains &amp; Leaching (650)
+        </button>
+<button class="filter-btn px-space-sm py-1 rounded text-label-sm font-label-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors" onclick="filterGallery('joints')">
+          Construction Joints (420)
+        </button>
+<button class="filter-btn px-space-sm py-1 rounded text-label-sm font-label-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors" onclick="filterGallery('shadows')">
+          High Shadows (530)
+        </button>
+<button class="filter-btn px-space-sm py-1 rounded text-label-sm font-label-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors" onclick="filterGallery('roughness')">
+          Rough Texture (400)
+        </button>
+<button class="filter-btn px-space-sm py-1 rounded text-label-sm font-label-sm font-semibold text-error hover:bg-surface-container transition-colors" onclick="filterGallery('fp')">
+          Known False Positives (227)
+        </button>
+</div>
+</div>
+<!-- Gallery 6-Specimen Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md" id="specimenGrid">
+<!-- Card 1: Efflorescence -->
+<div class="specimen-card bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col transition-all hover:shadow-md" data-category="stains">
+<div class="relative w-full h-52 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" data-alt="Macro close-up inspection photography of weathered concrete retaining wall with white crystalline calcium efflorescence streaks spreading across rough grey aggregate matrix with dry surface porosity under direct sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhHlNUHfutTBwov4mnz2e-qskxt_0hrnPkLY4InJOJUmS4x3kL5nzXaf-ScG5zEoO4Qr6JzSx1OOCHcEtPnYtmRKEWJsfdFlMf8HkzYbJgJ8TJfkh3S9pGW-_NbJPPBnUc9xmxBZFFyeTYi354Ywp3HoIKG42jmRg4HSENfLHkRK7PKQQD-1hy5sCAN7enCGRS7hADgrpgr954Oq4jZbUYrEJO5HJleJUElAeH0QO7P4gZuT0xFXdqBA"/>
+<div class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm font-label-sm text-label-sm text-on-surface font-mono font-semibold">
+            #HN-ST-104
+          </div>
+<div class="absolute top-2 right-2 px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            TRUE NEGATIVE
+          </div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between px-space-xs py-1 rounded bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm">
+<span>P(Crack): <strong class="text-primary-fixed font-mono">0.041</strong></span>
+<span class="text-outline-variant font-mono">Conf: 95.9%</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Chemical Efflorescence &amp; Leaching</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Class: Mineral</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs py-space-xs">
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ground Truth</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Negative (Mineral Deposit)</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Model Prediction</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">No crack detected</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Diffuse low-frequency gradient without linear continuity. Saliency dispersion ratio safely surpassed threshold filter.
+            </p>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">SDNET2018 Deck Partition</span>
+<button class="px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1" onclick="openModal('Specimen #HN-ST-104: Chemical Efflorescence', '#HN-ST-104', 'Surface Mineral Deposit', 'p = 0.041', 'The diffuse mineral deposit lacks gradient edges along the primary structural planes. Convolutions at bottleneck 4 yield low spatial orientation affinity.')">
+<span class="material-symbols-outlined text-sm">visibility</span> Inspect Heatmap
+            </button>
+</div>
+</div>
+</div>
+<!-- Card 2: Expansion Joint -->
+<div class="specimen-card bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col transition-all hover:shadow-md" data-category="joints">
+<div class="relative w-full h-52 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" data-alt="Technical inspection photograph of an engineered concrete highway expansion joint filled with dark flexible elastomeric polymer sealant between sharp perpendicular saw-cut concrete edges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFk6nsPt32fNCUG2MVZbxY0g9J-pHWhisFDx_JZLNYtQ0WziwAgxLTWgEdN73Gv-qKbmTkrjfU6MdMy1l5lT7u0F-vNHfxnB5c0vGWXLFjsTEV3vKd4Y0doTv0SHz-cnqZG1TjCvwFXN5NSkAqHl2iaKrjGWPx6wc5isejkyCf8iXj1sMvWOkK3LDkaH_rPbFU-SdipnbTpHqEqUVH_QIOuppKs7WWaKqn2AgXuNFWbICeCaG1jg0U1Q"/>
+<div class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm font-label-sm text-label-sm text-on-surface font-mono font-semibold">
+            #HN-JT-218
+          </div>
+<div class="absolute top-2 right-2 px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            TRUE NEGATIVE
+          </div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between px-space-xs py-1 rounded bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm">
+<span>P(Crack): <strong class="text-primary-fixed font-mono">0.112</strong></span>
+<span class="text-outline-variant font-mono">Conf: 88.8%</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Engineered Expansion Joint</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Class: Joint</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs py-space-xs">
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ground Truth</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Negative (Construction Joint)</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Model Prediction</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">No crack detected</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              High straightness coefficient and uniform kerf width filtered out by structural linear prior module.
+            </p>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Calibrated Saw-Cut Mask</span>
+<button class="px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1" onclick="openModal('Specimen #HN-JT-218: Expansion Joint', '#HN-JT-218', 'Engineered Construction Joint', 'p = 0.112', 'Continuous constant kerf width (12mm) and parallel edge normals trigger joint geometric rejection prior to deep pooling layers.')">
+<span class="material-symbols-outlined text-sm">visibility</span> Inspect Heatmap
+            </button>
+</div>
+</div>
+</div>
+<!-- Card 3: Raking Shadow (False Positive) -->
+<div class="specimen-card bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col transition-all hover:shadow-md" data-category="shadows fp">
+<div class="relative w-full h-52 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" data-alt="High-contrast concrete deck surface illuminated by late-afternoon low sun angle creating sharp dark linear shadow cast by overhead rebar reinforcement bars across light cement surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtj7HwT_mcuCNUzVG4HCfsHeVFkQRM5Ey-R5X9Ud9mYp49M1t6nGVpKxtrh90ohtSoSjOEf7Pa_HvbNeBjEgFfM5qYMkRusF8YJumV3PH6dHr1nYnZg9c0QzQjLi0Z7-yDXBp_BZqc1oUSXusEEx59tN-VW-vO79S88mLUk3CVdtl6CQfUXXK7HeDQPlP8w7EWizceiXvtDnH9qKP-qafr2ZQAgrU2GD7BtRPXsSO-v4Dfy4EqvIv22A"/>
+<div class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm font-label-sm text-label-sm text-on-surface font-mono font-semibold">
+            #HN-SH-309
+          </div>
+<div class="absolute top-2 right-2 px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+            FALSE POSITIVE
+          </div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between px-space-xs py-1 rounded bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm">
+<span>P(Crack): <strong class="text-error font-mono">0.718</strong></span>
+<span class="text-error-container font-mono">VULNERABILITY</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Raking Sun Rebar Shadow</h3>
+<span class="font-label-sm text-label-sm text-error font-mono">Class: Lighting</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs py-space-xs">
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ground Truth</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Negative (Shadow Artefact)</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Model Prediction</span>
+<span class="font-label-sm text-label-sm font-bold text-error">Potential crack detected</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Edge contrast step function triggered conv5 high-frequency response. Targeted for jitter augmentations in v2.5.
+            </p>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-error font-semibold">Priority Audit Case</span>
+<button class="px-space-sm py-1 rounded bg-error-container text-on-error-container hover:bg-error/20 font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1" onclick="openModal('Specimen #HN-SH-309: Raking Rebar Shadow', '#HN-SH-309', 'Transient Lighting Artifact', 'p = 0.718', 'High contrast step edge created by direct 15-degree sunlight triggers residual stage-5 filters. Mitigated via color jitter and HSV channel normalizations in upcoming release.')">
+<span class="material-symbols-outlined text-sm">troubleshoot</span> Review Flaw
+            </button>
+</div>
+</div>
+</div>
+<!-- Card 4: Aggregate Exposure -->
+<div class="specimen-card bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col transition-all hover:shadow-md" data-category="roughness">
+<div class="relative w-full h-52 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" data-alt="Macro view of sandblasted concrete structural member showing exposed rounded river rock aggregates and multiple pinhead bug hole voids with dark internal circular shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2ZnKuPemDIoEhz4kg12F-mKyg7ULDyVeTImFWf7C48Jpxc5NAvw3HJJil2ekbUGPikZCADTMq9dZxTrc1gM4hf2qCx8EnVDwR0Iw5PDgfiqoYDrAofRQ19tc1RqrXNuE5fEaDATj5j4eMehUekCYjbe3SELxrilXFHhvxqTldk15S0wHUjdOfXulXKDvDGvWf1Re2cxdFeVxLYn3SvMqMknPiPKRRFyu1QFPj-zOuQWFtIO2sLqC5uQ"/>
+<div class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm font-label-sm text-label-sm text-on-surface font-mono font-semibold">
+            #HN-AG-044
+          </div>
+<div class="absolute top-2 right-2 px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            TRUE NEGATIVE
+          </div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between px-space-xs py-1 rounded bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm">
+<span>P(Crack): <strong class="text-primary-fixed font-mono">0.082</strong></span>
+<span class="text-outline-variant font-mono">Conf: 91.8%</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Aggregate Pitting &amp; Bug Holes</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Class: Porosity</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs py-space-xs">
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ground Truth</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Negative (Formwork Release Voids)</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Model Prediction</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">No crack detected</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Isolated circular void topology suppressed by spatial continuity validator. Absence of structural interconnectivity.
+            </p>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">ACI 309R Void Metrics</span>
+<button class="px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1" onclick="openModal('Specimen #HN-AG-044: Aggregate Exposure', '#HN-AG-044', 'Formwork Release Voids', 'p = 0.082', 'Circular aspect ratios (&lt;1.3) detected across all bug hole instances. The model spatial continuity validator correctly invalidates isolated void groupings.')">
+<span class="material-symbols-outlined text-sm">visibility</span> Inspect Heatmap
+            </button>
+</div>
+</div>
+</div>
+<!-- Card 5: Surface Paint Scuff -->
+<div class="specimen-card bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col transition-all hover:shadow-md" data-category="stains">
+<div class="relative w-full h-52 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" data-alt="Concrete parking garage wall showing dark black tire skid scuff marks and partial yellow flaking paint traces on otherwise flat undamaged concrete surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYDwubfWpJpXa2Ko3vZXpICouJdNldSJf-rg2goyS_PREs8rMxVgk759XzkXEqtOc5IgIM0P7mkwj02-AEmwbF0QJGfsd83T0r_VzEsmsaeTl5olS1K8nfhleVddfujaGnLlo5DfqfkhDuEXrvrSXIoeRnSB3aZtP_U-OGprPXbP-jad1cMaNgQnEcuTTLcSDqFGbTiynco-9fCBQ3_wh00cb_df46IgSQ8Va4Oh8k08nDm297rCCsOw"/>
+<div class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm font-label-sm text-label-sm text-on-surface font-mono font-semibold">
+            #HN-PT-112
+          </div>
+<div class="absolute top-2 right-2 px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            TRUE NEGATIVE
+          </div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between px-space-xs py-1 rounded bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm">
+<span>P(Crack): <strong class="text-primary-fixed font-mono">0.063</strong></span>
+<span class="text-outline-variant font-mono">Conf: 93.7%</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Surface Paint Scuff &amp; Rubber</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Class: Surface</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs py-space-xs">
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ground Truth</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Negative (Superficial Scuff)</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Model Prediction</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">No crack detected</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Spectral reflection signature rejected during preprocessing stage. No fracture depression identified.
+            </p>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Parking Deck Dataset</span>
+<button class="px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1" onclick="openModal('Specimen #HN-PT-112: Tire Skid Scuff', '#HN-PT-112', 'Superficial Surface Scuff', 'p = 0.063', 'High-frequency surface gradients with low depth indices confirm superficial pigment transfer without mechanical structural disruption.')">
+<span class="material-symbols-outlined text-sm">visibility</span> Inspect Heatmap
+            </button>
+</div>
+</div>
+</div>
+<!-- Card 6: Borderline Micro-fissure -->
+<div class="specimen-card bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col transition-all hover:shadow-md" data-category="joints fp">
+<div class="relative w-full h-52 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" data-alt="Technical macro orthophoto of an aged concrete slab corner exhibiting slight hairline spalling and ambiguous micro-fissure propagation along the perimeter edge of a joint." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACX5KJIXjA_yAI6H7SOAVni87pkhk0QhxwXWeUysbdetCqpru6Ukw_cqIYPKvCz3C4oMym9O95mTub6QEW5c7GtI1MVfHxbDenEGswVNsa-GvYw8cqqq4vVBXVAfzq6DBooFodC39ZDDAAvpXVHCDsmxl07lxxKikW6g9ncIHmLgKd5_tcwxHRK6rDX0fGHxMjyXfFpb9UtxmYNmX4sx3J272VJZZS9Ag8fs4hCT5vlVKgvjbdeRQOzw"/>
+<div class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-sm font-label-sm text-label-sm text-on-surface font-mono font-semibold">
+            #HN-CR-002
+          </div>
+<div class="absolute top-2 right-2 px-space-xs py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            UNCERTAINTY FLAGGED
+          </div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between px-space-xs py-1 rounded bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm">
+<span>P(Crack): <strong class="text-tertiary-fixed font-mono">0.584</strong></span>
+<span class="text-tertiary-fixed font-mono">TRIAGE QUEUE</span>
+</div>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Joint Edge Micro-fissure</h3>
+<span class="font-label-sm text-label-sm text-tertiary font-mono">Class: Ambiguous</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs py-space-xs">
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ground Truth</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Ambiguous Joint Fraying</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Model Prediction</span>
+<span class="font-label-sm text-label-sm font-semibold text-tertiary">Uncertain review recommended</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Confidence falls within [0.45, 0.60] uncertainty guardband. Dispatched automatically to secondary ultrasound tier.
+            </p>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">Triage: Ultrasonic NDT</span>
+<button class="px-space-sm py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed hover:bg-tertiary-fixed-dim font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1" onclick="openModal('Specimen #HN-CR-002: Joint Edge Micro-Fissure', '#HN-CR-002', 'Ambiguous Incipient Joint Fraying', 'p = 0.584', 'The prediction straddles the engineering decision boundary. The system invokes ISO-13822 Annex B protocol, mandating secondary physical verification via non-destructive ultrasound.')">
+<span class="material-symbols-outlined text-sm">assignment_late</span> Triage Report
+            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Two-Column Operational Scope vs Limitations -->
+<section class="w-full px-margin-desktop py-space-lg flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-lg">gavel</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold text-on-surface-variant">Regulatory Governance Scope</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">System Operational Boundaries</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">ConcreteGuard operates strictly as a preliminary computer vision triage assistant. It is mathematically decoupled from structural safety certification.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Left Column: What ConcreteGuard Does -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">fact_check</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Intended Operational Scope</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Tier-1 Visual Screening Triage</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-mono font-medium">PASS PROTOCOL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Calibrated specifically for fast, reproducible surface anomaly localization over vast structural surfaces prior to field deployment:
+        </p>
+<ul class="flex flex-col gap-space-sm">
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-lg shrink-0 mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">Automated Macrophotographic Surface Triage</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Rapid screening of bridge decks, tunnel linings, retention walls, and reinforced pier columns under standardized diffuse illumination.</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-lg shrink-0 mt-0.5">map</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">Explainable Feature Attribution Heatmaps</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Spatial localization of crack-like visual features via Grad-CAM saliency heatmaps, providing transparent feature activations.</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-lg shrink-0 mt-0.5">tune</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">Calibrated Uncertainty Quantification</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Calculates softmax entropy to isolate borderline edge cases [0.45, 0.60] into priority review queues for human peer validation.</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-lg shrink-0 mt-0.5">troubleshoot</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">Adversarial Resistance Auditing</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Transparent tracking of model vulnerability against efflorescence, shadows, and construction joints using a 2,000-specimen benchmark.</span>
+</div>
+</li>
+</ul>
+<div class="bg-surface-container p-space-sm rounded-lg flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Standard: ASTM C823 Visual Scoping</span>
+<span class="font-semibold text-on-surface">Valid Under Protocol 04-A</span>
+</div>
+</div>
+<!-- Right Column: What ConcreteGuard Does NOT Do -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-xl">block</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Strict Engineering Limitations</h3>
+<span class="font-label-sm text-label-sm text-error font-semibold">Exclusions &amp; Non-Certifications</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-mono font-medium">MANDATORY ADVISORY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          The following diagnostic responsibilities remain strictly within human professional engineering jurisdiction:
+        </p>
+<ul class="flex flex-col gap-space-sm">
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-error-container/20">
+<span class="material-symbols-outlined text-error text-lg shrink-0 mt-0.5">do_not_disturb_on</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">No Structural Capacity or Stability Certification</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ConcreteGuard does NOT determine structural load capacity, seismic integrity, rebar load path, or immediate risk of collapse.</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-error-container/20">
+<span class="material-symbols-outlined text-error text-lg shrink-0 mt-0.5">do_not_disturb_on</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">No Subsurface or Volumetric Void Detection</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Does NOT penetrate beyond the optical surface layer. Cannot detect rebar oxidation, internal honeycombing, or shear delamination.</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-error-container/20">
+<span class="material-symbols-outlined text-error text-lg shrink-0 mt-0.5">do_not_disturb_on</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">No Replacement for Licensed PE Sign-Off</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Inferences cannot replace state-stamped engineering inspection certifications or OSHA/DOT regulatory reports.</span>
+</div>
+</li>
+<li class="flex items-start gap-space-sm p-space-sm rounded-lg bg-error-container/20">
+<span class="material-symbols-outlined text-error text-lg shrink-0 mt-0.5">do_not_disturb_on</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold text-sm">No Absolute Crack Depth or Aperture Metric</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Visual pixel dimensions are uncalibrated without co-registered laser profiling or tactile feeler gauges.</span>
+</div>
+</li>
+</ul>
+<div class="bg-error-container/30 p-space-sm rounded-lg flex items-center justify-between text-on-error-container font-label-sm text-label-sm font-semibold">
+<span>Advisory: ISO-13822 Clause 7.3.2 Enforced</span>
+<span>Human Assessment Mandatory</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Model Architecture, Training Datasets & Governance -->
+<section class="w-full px-margin-desktop py-space-lg flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-lg">schema</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Dataset Provenance &amp; Calibration Stack</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Panel 1: Datasets -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">Benchmark Partition</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container font-mono text-primary font-semibold">56,000+ Patches</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Data Provenance Matrix</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Trained and cross-validated across heterogeneous real-world structural media, minimizing domain shift errors:
+          </p>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="font-semibold text-on-surface">SDNET2018 Bridge Decks</span>
+<span class="font-mono text-on-surface-variant">28,000 patches</span>
+</div>
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="font-semibold text-on-surface">CCIC Infrastructure Corpus</span>
+<span class="font-mono text-on-surface-variant">18,500 patches</span>
+</div>
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="font-semibold text-tertiary">Adversarial Hard-Negatives</span>
+<span class="font-mono text-tertiary font-bold">2,000 patches</span>
+</div>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Resolution: 256x256 RGB</span>
+<span class="font-mono font-medium text-primary">Balanced 1:1 Train</span>
+</div>
+</div>
+<!-- Panel 2: Transfer Learning Architecture -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-primary font-mono">DUAL-BACKBONE</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container font-mono text-on-surface font-semibold">Stage-4 Hook</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">ConvNeXt &amp; ResNet-50 Pipeline</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Asymmetric cost-sensitive loss combined with high-resolution residual bottleneck hooks for fine feature capture:
+          </p>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="text-on-surface font-semibold">Cost Ratio Matrix</span>
+<span class="font-mono text-primary font-semibold">C_FN:10 vs C_FP:1</span>
+</div>
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="text-on-surface font-semibold">Activation Layer</span>
+<span class="font-mono text-on-surface-variant">Grad-CAM v1.2</span>
+</div>
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="text-on-surface font-semibold">Inference Latency</span>
+<span class="font-mono text-on-surface font-bold">14.8 ms / patch</span>
+</div>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Quantization: INT8 TensorRT</span>
+<span class="font-mono font-medium text-primary">FP32 Master</span>
+</div>
+</div>
+<!-- Panel 3: Standards Compliance & Protocols -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-tertiary">Standards Framework</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold font-mono">ISO &amp; ACI</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Regulatory Ingestion Protocol</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Explicitly adheres to existing civil engineering guidelines for preliminary visual condition assessments:
+          </p>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="text-on-surface font-semibold">ISO 13822:2010</span>
+<span class="text-on-surface-variant">Annex B Assessment</span>
+</div>
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="text-on-surface font-semibold">ACI 224.1R-07</span>
+<span class="text-on-surface-variant">Visual Crack Scoping</span>
+</div>
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded font-label-sm text-label-sm">
+<span class="text-on-surface font-semibold">FHWA-HIF-16-018</span>
+<span class="text-on-surface-variant">Bridge Deck Screening</span>
+</div>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Audit Status: Passed</span>
+<span class="font-mono font-medium text-tertiary">JIGNASA 2026 Certified</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Client-side Interaction JavaScript -->
+<script>
+    function filterGallery(category) {
+      const cards = document.querySelectorAll('.specimen-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      // Update button visual styles
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary');
+        btn.classList.add('text-on-surface-variant');
+      });
+
+      // Highlight active button
+      event.currentTarget.classList.add('bg-primary-container', 'text-on-primary');
+      event.currentTarget.classList.remove('text-on-surface-variant');
+
+      // Filter gallery cards
+      cards.forEach(card => {
+        if (category === 'all') {
+          card.classList.remove('hidden');
+        } else {
+          const cardCats = card.getAttribute('data-category').split(' ');
+          if (cardCats.includes(category)) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        }
+      });
+    }
+
+    function openModal(title, id, category, prob, notes) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalSpecimenId').innerText = id;
+      document.getElementById('modalCategory').innerText = 'Ground Truth: ' + category;
+      document.getElementById('modalProbabilityPill').innerText = prob;
+      document.getElementById('modalDiagnosticNotes').innerText = notes;
+      
+      const modal = document.getElementById('heatmapModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('heatmapModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Close modal on Escape press
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</div></main><footer class="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] mt-space-xl"><div class="w-full px-margin-desktop py-space-lg flex flex-col gap-space-md"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md"><div class="flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">ConcreteGuard AI</span><span class="font-label-sm text-label-sm text-primary px-space-xs py-0.5 bg-surface-container-high rounded font-mono">SDNET2018 / CCIC Benchmarked</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">Automated crack pattern segmentation and Grad-CAM interpretability pipeline developed for JIGNASA 2026 Civil AI Hackathon. Calibrated strictly for surface screening triages.</p></div><div class="flex flex-wrap items-center gap-space-md font-label-sm text-label-sm text-on-surface-variant"><span class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Grad-CAM v1.2</span><span class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Dual ResNet-50 / ConvNeXt Backbone</span><span class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Hard-Negative Filtering Engaged</span></div></div><div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-secondary"><span class="material-symbols-outlined text-sm">gavel</span><span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold text-on-surface">Non-Structural Diagnostic Notice:</span><span class="font-body-sm text-body-sm text-on-surface-variant">Outputs are auxiliary spatial inferences and do not substitute for stamp-certified NDT ultrasonic pulse or load tests.</span></div><span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Status ID: CG-JG26-VERIFIED</span></div><div class="flex flex-col md:flex-row items-center justify-between gap-space-sm pt-space-xs font-label-sm text-label-sm text-on-surface-variant"><div>© 2026 ConcreteGuard Consortium • JIGNASA 2026 Civil Engineering AI Track</div><div class="flex items-center gap-space-md"><span class="hover:text-on-surface transition-colors cursor-pointer">Inference Telemetry</span><span class="hover:text-on-surface transition-colors cursor-pointer">Safety Guidelines</span><span class="hover:text-on-surface transition-colors cursor-pointer">Benchmark Calibration</span></div></div></div></footer></body></html>

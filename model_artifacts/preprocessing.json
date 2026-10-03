@@ -1,0 +1,9 @@
+{
+  "image_size": [
+    224,
+    224
+  ],
+  "rescale": 0.00392156862745098,
+  "color_mode": "rgb",
+  "interpolation": "bilinear"
+}

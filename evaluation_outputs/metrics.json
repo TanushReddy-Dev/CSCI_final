@@ -1,0 +1,16 @@
+{
+  "accuracy": 0.7063925855513308,
+  "precision": 0.3137254901960784,
+  "recall": 0.7912087912087912,
+  "f1_score": 0.44929797191887677,
+  "threshold": 0.09000000000000001,
+  "confusion_matrix": {
+    "TN": 4937,
+    "FP": 2205,
+    "FN": 266,
+    "TP": 1008
+  },
+  "total_samples": 8416,
+  "false_positives": 2205,
+  "false_negatives": 266
+}

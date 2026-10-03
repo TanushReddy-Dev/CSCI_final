@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>ConcreteGuard - Explainable AI Surface Screening</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-fixed":"#0d1c2f","secondary-fixed-dim":"#b9c7e0","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-secondary-fixed-variant":"#3a485c","secondary":"#515f74","outline":"#737686","on-secondary":"#ffffff","secondary-fixed":"#d5e3fd","on-tertiary-container":"#ffede1","primary-fixed-dim":"#b4c5ff","tertiary":"#824500","secondary-container":"#d5e3fd","on-secondary-container":"#57657b","on-primary-fixed":"#00174b","on-error-container":"#93000a","on-surface":"#131b2e","primary":"#004ac6","on-background":"#131b2e","primary-fixed":"#dbe1ff","on-primary":"#ffffff","inverse-primary":"#b4c5ff","surface-tint":"#0053db","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","surface-bright":"#faf8ff","on-error":"#ffffff","surface-container-high":"#e2e7ff","surface-container-highest":"#dae2fd","error-container":"#ffdad6","inverse-on-surface":"#eef0ff","outline-variant":"#c3c6d7","background":"#faf8ff","tertiary-fixed":"#ffdcc3","on-primary-fixed-variant":"#003ea8","on-tertiary-fixed-variant":"#6e3900","inverse-surface":"#283044","tertiary-fixed-dim":"#ffb77d","primary-container":"#2563eb","surface-container":"#eaedff","on-surface-variant":"#434655","surface-dim":"#d2d9f4","surface-container-low":"#f2f3ff","on-tertiary":"#ffffff","tertiary-container":"#a65900","surface":"#faf8ff","surface-variant":"#dae2fd"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-xl":"2rem","space-sm":"0.5rem","space-lg":"1.5rem","space-xs":"0.25rem","margin-desktop":"2rem","space-md":"1rem",gutter:"1rem","gutter-desktop":"1.5rem",margin:"1rem","margin-tablet":"1.5rem"},fontFamily:{"body-sm":["Inter"],"headline-lg":["Inter"],"label-sm":["JetBrains Mono"],"headline-md":["Inter"],"headline-sm":["Inter"],"body-md":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-xl":["Inter"],"headline-lg-mobile":["Inter"],"label-lg":["JetBrains Mono"],"label-md":["JetBrains Mono"]},fontSize:{"body-sm":["12px",{lineHeight:"18px",fontWeight:"400"}],"headline-lg":["28px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-sm":["10px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"headline-xl-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"700"}],"headline-xl":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-lg-mobile":["22px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"500"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.04em",fontWeight:"500"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full px-margin-desktop"><div class="h-20 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><img alt="ConcreteGuard Logo" class="w-9 h-9 rounded-lg object-cover bg-surface-container-high" src="https://lh3.googleusercontent.com/aida/AEtjO1UF_CndLuSduN0Q15kMf_GKnIyzJSHtqBiuReytZtLO2i2I3Ffd_16YTwKecmeoxqRWu3e9xP51CwBelyq5Ag9tZ_h3clrVmMwSRaolT81nw2FN0pbXOUI7KUyT8lNWg2NyHXTmiGsF1z8oI3i-gSoNh3DVCIQs7DtMV-mAHZHuQ0sXTmsFNV0TmPUDZltImwI-RaFJEPxo7ugWO3CtRd5EH1cDuTrLc7E1Vh3wli_V_SpHx6tclI2y_jM"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">ConcreteGuard</span><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-semibold uppercase tracking-wider">v2.4</span></div><span class="font-label-sm text-label-sm text-on-surface-variant">Explainable Visual Inspection Assistant</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low p-1 rounded-lg" data-active-classes="bg-primary-container text-on-primary font-semibold"><a aria-current="page" class="px-space-md py-1.5 rounded transition-colors bg-primary-container text-on-primary font-semibold" data-path="screening-lab" href="#">Screening Lab</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="evidence-viewer" href="#">Evidence Viewer</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="model-evaluation" href="#">Model Evaluation</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="hard-negative-gallery" href="#">Hard-Negative Gallery</a><a class="px-space-md py-1.5 rounded text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="about-limitations" href="#">About &amp; Limitations</a></nav><div class="flex items-center gap-space-sm"><div class="hidden md:flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low text-on-surface"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Engine: <strong class="text-on-surface font-semibold">Ready</strong></span><span class="font-label-sm text-label-sm text-outline-variant">|</span><span class="font-label-sm text-label-sm text-on-surface-variant">Fixture Adapter Active</span></div><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-secondary-fixed text-on-secondary-fixed"><span class="material-symbols-outlined text-sm text-primary">architecture</span><span class="font-label-sm text-label-sm font-semibold tracking-wide">JIGNASA 2026 Civil AI Track</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover bg-surface-container-high" src="https://lh3.googleusercontent.com/aida/AEtjO1UF_CndLuSduN0Q15kMf_GKnIyzJSHtqBiuReytZtLO2i2I3Ffd_16YTwKecmeoxqRWu3e9xP51CwBelyq5Ag9tZ_h3clrVmMwSRaolT81nw2FN0pbXOUI7KUyT8lNWg2NyHXTmiGsF1z8oI3i-gSoNh3DVCIQs7DtMV-mAHZHuQ0sXTmsFNV0TmPUDZltImwI-RaFJEPxo7ugWO3CtRd5EH1cDuTrLc7E1Vh3wli_V_SpHx6tclI2y_jM"/></div></div><div class="bg-tertiary-fixed text-on-tertiary-fixed px-space-md py-1.5 rounded-lg flex items-center justify-between gap-space-sm mb-2 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xs overflow-hidden"><span class="material-symbols-outlined text-tertiary text-base shrink-0">warning</span><p class="font-label-sm text-label-sm text-on-tertiary-fixed leading-tight truncate"><strong class="font-semibold uppercase tracking-wider">Visual Screening Only:</strong> Identifies visible crack-like surface patterns to prioritize expert inspection. Does not evaluate structural integrity, depth, load capacity, or hidden internal defects. Human certified assessment remains strictly mandatory.</p></div><span class="hidden lg:inline-flex font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-lowest text-tertiary font-semibold shrink-0 uppercase tracking-widest">Advisory Protocol ISO-13822</span></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Subtle decorative ambient background glows contained within viewport -->
+<div class="relative w-full overflow-hidden px-margin-desktop py-space-lg">
+<div class="absolute -top-32 -left-20 w-96 h-96 rounded-full bg-primary-fixed-dim/20 blur-3xl pointer-events-none"></div>
+<div class="absolute top-20 right-0 w-80 h-80 rounded-full bg-surface-container-high/40 blur-2xl pointer-events-none"></div>
+<!-- Top Mission & Rigorous Framing Block -->
+<div class="relative z-10 flex flex-col gap-space-md mb-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="max-w-4xl flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded font-label-sm text-label-sm uppercase bg-surface-container-high text-primary tracking-widest font-semibold">Triage Stage 01</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-wider font-mono">SPEC-SURF-CAL-v2.4</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">CCIC/SDNET2018 Normalized</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-bold">
+            Identify visible crack-like patterns. <span class="text-primary">Prioritize expert inspection.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+            Upload concrete surface imagery to run transfer-learning CNN screening with Grad-CAM visual evidence, uncertainty estimation, and image quality verification.
+          </p>
+</div>
+<!-- Telemetry Pill Header Counter -->
+<div class="flex items-center gap-space-sm bg-surface-container-lowest p-space-sm rounded-xl shadow-sm self-start lg:self-auto">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">troubleshoot</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-semibold">Model Baseline</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Dual ResNet-50 / Rec. 0.941</span>
+</div>
+</div>
+</div>
+<!-- Prominent Safety Disclaimer Card (Strict JIGNASA Compliance) -->
+<div class="w-full bg-error-container/40 text-on-error-container p-space-md rounded-xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-start sm:items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined text-2xl">flip_camera_ios</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-md text-label-md uppercase tracking-wider font-bold text-on-surface">Civil Safety Advisory • ISO-13822 Ingestion Protocol</span>
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+              This tool identifies visible crack-like image patterns for screening only. It does not assess structural safety, structural severity, or hidden damage. Expert inspection remains necessary.
+            </p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-space-xs bg-surface-container-lowest px-space-md py-1.5 rounded-lg shadow-sm">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="font-label-sm text-label-sm font-bold text-error uppercase tracking-wider">Stamp Not Authorized</span>
+</div>
+</div>
+</div>
+<!-- Main Two-Column Screening Grid -->
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Ingestion, Demonstration Selector & Quality Verification Checklist (Cols 1-6) -->
+<div class="lg:col-span-6 flex flex-col gap-space-md">
+<!-- Upload & Dropzone Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">file_upload</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Surface Capture Ingestion</h2>
+</div>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-mono">MAX 15 MB</span>
+</div>
+<!-- Drag & Drop Zone -->
+<div class="relative group cursor-pointer bg-surface-container-low hover:bg-surface-container-high/60 transition-all rounded-xl p-space-xl flex flex-col items-center justify-center text-center gap-space-sm min-h-[200px]" id="drop-zone">
+<input accept="image/jpeg,image/png,image/webp" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-20" id="file-input" type="file"/>
+<div class="w-14 h-14 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add_photo_alternate</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Choose Image or drag &amp; drop here</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Orthogonal raw sensor output or high-res field photo</p>
+</div>
+<div class="flex items-center gap-space-xs mt-space-xs">
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-secondary font-mono">.JPG</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-secondary font-mono">.JPEG</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-secondary font-mono">.PNG</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container text-secondary font-mono">.WEBP</span>
+</div>
+</div>
+<!-- Action Control Row -->
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 bg-primary hover:bg-primary-container text-on-primary h-11 px-space-md rounded-lg font-label-md text-label-md uppercase tracking-wider font-semibold shadow-sm flex items-center justify-center gap-space-xs transition-colors" id="analyze-btn">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+              Analyze Image
+            </button>
+<button class="bg-surface-container hover:bg-surface-container-high text-on-surface-variant h-11 px-space-md rounded-lg font-label-md text-label-md tracking-wider font-semibold transition-colors flex items-center gap-space-xs" id="reset-btn">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+              Reset / Clear
+            </button>
+</div>
+</div>
+<!-- Demonstration Pre-Loaded Library -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Validation Library</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Use Calibrated Demo Specimen</h3>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-mono">6 Benchmark Targets</span>
+</div>
+<!-- Quick Picker Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm mt-space-xs" id="demo-selector-group">
+<!-- Item 1 (Selected default) -->
+<button class="demo-card active text-left p-space-sm rounded-lg bg-surface-container-high text-on-surface transition-all flex items-start gap-space-sm" data-quality="Acceptable" data-score="87.4" data-specimen="A-104" data-type="positive">
+<div class="w-12 h-12 rounded bg-surface-container-lowest overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Macro telephoto concrete surface view showcasing clear linear diagonal cracking fissure across textured cement mortar with fine aggregate dispersion and high resolution edge clarity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnDRQkEgyiKCRjNfy-cXM0BH9mi3-oAsH8JIRrrFC0lyijJQEPxsjzry-sZhVyEP-Plefg5XnvKLLm1xJPnBP1zj5r9YU7fjEwpKvLPLRAy4NbSkftGFoRPWs6aCl2h4c9ZSYEpnbuxeQXZtjnlxBeNrnMwjQPpPcBUZPlPe9SsQJjKXPbUqe5D1jhN5x18krXZE69NV_s5IF6HE_WPjF7wS91GeEbsutkN35VOaRS0702gkSVVNXmtQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate">Clear Crack</span>
+<span class="font-label-sm text-label-sm text-error font-mono shrink-0">#A-104</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">0.65mm prominent rupture</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold mt-0.5">High Target Signal</span>
+</div>
+</button>
+<!-- Item 2 -->
+<button class="demo-card text-left p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" data-quality="Acceptable" data-score="64.1" data-specimen="B-219" data-type="positive-hairline">
+<div class="w-12 h-12 rounded bg-surface-container-lowest overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Ultra fine microscopic hairline fracture tracing through smooth gray poured concrete slab under diffuse overhead daylight with micro fissures visible" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnj4xa7UHS-yM3BQXt9cJv60AT4PAQ-aD57Mt4Y22lXnm2UUdiwD6VE2jHxTILZQS7jjhzGlQ_hSKrsEzZegU1cVdNoip8r8c5PhPy_3M2DwoiCoKilQRINaCgnOQZPVlwmLDMp_LiBpjCiyyQ0g3FAo3SEV6r0z5TLuaxG6SD4B7HvyLdIUcM8344xr2XokUuRjmPFnacR7dhVCSfKpJmRhikZZa1k1IeHlDaxyqPCQrEnhSZsSDQCg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate">Hairline Crack</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono shrink-0">#B-219</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">0.18mm boundary margin</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold mt-0.5">Threshold Ambiguity</span>
+</div>
+</button>
+<!-- Item 3: Hard Negative Stain -->
+<button class="demo-card text-left p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" data-quality="Acceptable" data-score="14.2" data-specimen="HN-04" data-type="negative">
+<div class="w-12 h-12 rounded bg-surface-container-lowest overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Concrete retaining wall surface showing irregular dark moisture runoff stain and water seepage streaks resembling crack lines but strictly surface discoloration without physical relief" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUj8K8Tctctgj8pz2F6z2d9d9jpsVecAQJu2sYhYZRF1__ZAH7TrIYUzRnpcLWZqwfz-FV6niQQHALnTGbsQhJp3XWsbS68LuRZM4dgvMRZARm5UYs1B4lXlO5NAEFbN2YALj6auFss5_C55FxXhmPfZ_NlkmfkQzbWbGpJ0eUQRoeAr8eN5jFL9rbPRMv3rwytwVzA2MbWuU9WFCVRCuxHPGMGRAGOlmk0jVwbRgISKtuhBroS4f7cA"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate">Surface Stain</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono shrink-0">#HN-04</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Liquid leaching runoff</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold mt-0.5">Hard Negative Benchmark</span>
+</div>
+</button>
+<!-- Item 4: Hard Negative Construction Joint -->
+<button class="demo-card text-left p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" data-quality="Acceptable" data-score="08.7" data-specimen="HN-12" data-type="negative">
+<div class="w-12 h-12 rounded bg-surface-container-lowest overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Straight mechanical saw-cut engineered concrete expansion joint filled with elastomeric black sealant running perfectly linear across pavement slabs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeBSFsjJqW6XBhQb4cqY5xPWvNCTiLr83_IcQpABJwKLEZCINBtxa1fSd-NyClmBJxA5MYaFWjlTdM7Fgm1ISBRRMlgd7rw7B04gVIy7-Vgwz0JFUWRN6deazAmkYc594k3ykokiFRyaeLv7bkYjf72OIP3WyuavPla6yAv3Gt5hdieKJZ4p-TzapAd4f5oXMCKNJj-GT3Z7UHP4IGtUL95FEmm4rHG8aFxwG2iWwPUR9OKhh9nWFo3g"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate">Construction Joint</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono shrink-0">#HN-12</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Engineered expansion relief</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold mt-0.5">True Negative Reject</span>
+</div>
+</button>
+<!-- Item 5: High Contrast Shadow False Positive Challenge -->
+<button class="demo-card text-left p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" data-quality="Acceptable" data-score="38.5" data-specimen="HN-31" data-type="negative-ambiguous">
+<div class="w-12 h-12 rounded bg-surface-container-lowest overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Extreme diagonal hard-edged shadow cast by a suspension cable or rebar across smooth concrete bridge pier surface on bright sunny day with intense geometric contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC5cn0SJ83yR9sRsYcLKoYTTwK-hYnsSxqQ31MJJSI1Sep0IZcuYok3Pp86bhY0TDcqYOVYHxwE1Il2IHxeyEeq7J0HA3dmiGD0NTuHVsEzqk5_xxe0_ptctbgzu4KBFhujkW1yn66nIRW6uGkF7HLFEoKqtoY_0shTddxqb3jZCr0Jd2-EEAGaHqB0Ap0yM4r3PsEqzGXYA8b4Yaaj7NSwUD5zc8sU0EUiiKc3Kocug09CZtlRH0NzQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate">Contrast Shadow</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono shrink-0">#HN-31</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Sharp diagonal occultation</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold mt-0.5">False Positive Filtered</span>
+</div>
+</button>
+<!-- Item 6: Blurry Degraded Quality Flag -->
+<button class="demo-card text-left p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" data-quality="Degraded" data-score="49.0" data-specimen="DG-08" data-type="quality-reject">
+<div class="w-12 h-12 rounded bg-surface-container-lowest overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Motion blurred out-of-focus camera capture of a concrete beam showing smeared texture and loss of high frequency spatial features" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ5UtyJ0QvGQPMkQdePwMzsfC74cy2DDqL1h8CtZSLHP5pMJug7Tu8sCL1etWUqhK0oPbbylLVZKPitiN6zcoxEGHJD5YC_Dg-fpKJALGME5o55cV2G8vEvXUO20hyhC4eW__blpgD9uvmFSv0YQZaALLUKKY89w3YIHMwbweuSCq8AgI7j5i-lyOKgr_A2Ydxvxm_yUG8ARQCCsCEBPbmmaKlL840noVLtZeSxeCR2xRXT0oxuBaGxQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate">Blurry / Degraded</span>
+<span class="font-label-sm text-label-sm text-error font-mono shrink-0">#DG-08</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Motion shake &lt; 10 lp/mm</span>
+<span class="font-label-sm text-label-sm text-error font-semibold mt-0.5">Quality Flag Triggered</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Field Capture Guidance Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">camera_outdoor</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Field Capture Quality Protocols</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Transfer-learning saliency depends directly on sensor orthogonal alignment and focal consistency.
+          </p>
+<div class="grid grid-cols-1 gap-space-xs mt-space-xs">
+<div class="flex items-start gap-space-sm p-space-xs rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-base mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Perpendicular Orthogonal Angle (≈90°)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Prevent angular keystoning and perspective foreshortening distortion.</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-xs rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-base mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Even, Diffused Illumination</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Avoid harsh spotlighting, specular reflection, and deep external cast shadows.</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-xs rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-base mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Spatial Resolution ≥ 0.2mm per Pixel</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Maintain optical proximity necessary to resolve hairline aperture boundaries.</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-xs rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-base mt-0.5">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Zero Motion Blur &amp; Optical Stabilization</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Shutter &gt; 1/250s or mechanical fixture clamp during high-wind deck inspection.</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm p-space-xs rounded bg-surface-container-high">
+<span class="material-symbols-outlined text-tertiary text-base mt-0.5">gavel</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-tertiary">Multi-View Validation Mandatory</span>
+<span class="font-body-sm text-body-sm text-on-surface">Never rely on a single isolated photograph for structural maintenance triage.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Active Analysis & Live Prediction Results (Cols 7-12) -->
+<div class="lg:col-span-6 flex flex-col gap-space-md">
+<!-- 3-Step Simulated Pipeline State Indicator -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Inspection Inference Pipeline</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-bold font-mono">LATENCY: 84ms</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs pt-1">
+<!-- Step 1 -->
+<div class="flex flex-col gap-1 p-space-xs rounded bg-surface-container-low">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-base">check_circle</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">1. Ingest</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface leading-tight font-medium truncate">Norm &amp; Resize</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">224x224 RGB</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col gap-1 p-space-xs rounded bg-surface-container-low">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-base">check_circle</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">2. Backbone</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface leading-tight font-medium truncate">ConvNeXt / ResNet</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">Softmax Logits</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col gap-1 p-space-xs rounded bg-surface-container-low">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-base">check_circle</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">3. Saliency</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface leading-tight font-medium truncate">Grad-CAM v1.2</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">Layer4 Act. Map</span>
+</div>
+</div>
+</div>
+<!-- Primary Screening Result Card (Specimen #A-104 Demo Active State) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-lg flex flex-col gap-space-md">
+<!-- Result Card Header & Badge -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm border-b border-surface-container-low">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Active Specimen</span>
+<span class="font-label-sm text-label-sm font-mono text-primary font-bold" id="active-specimen-id">#A-104 (Deck Pier Section 3B)</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">Screening Assessment</h2>
+</div>
+<!-- Rigorous Status Badge -->
+<div class="px-space-md py-1.5 rounded-lg bg-error-container text-on-error-container flex items-center gap-space-xs self-start sm:self-auto shadow-sm" id="status-badge">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider" id="status-text">Potential Crack Detected</span>
+</div>
+</div>
+<!-- Probability & Confidence Bar -->
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-md rounded-xl">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-semibold tracking-wider">Classification Confidence</span>
+<span class="material-symbols-outlined text-sm text-secondary" title="Calculated posterior score over validated test distribution">info</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface font-mono" id="confidence-number">87.4%</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">p = 0.874</span>
+</div>
+</div>
+<!-- Visual Meter -->
+<div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden relative">
+<div class="bg-primary h-full transition-all duration-700 ease-out" id="confidence-bar" style="width: 87.4%"></div>
+<!-- Decision Threshold Marker -->
+<div class="absolute top-0 bottom-0 w-0.5 bg-on-surface z-10" style="left: 60%;" title="Active High-Recall Threshold: 0.60"></div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-secondary font-mono">0.0 (Uniform Smooth)</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-lowest text-on-surface font-semibold font-mono shadow-xs">
+                Active Threshold: 0.60 (High Recall Screening)
+              </span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">1.0 (Definite Pattern)</span>
+</div>
+</div>
+<!-- Metrics 2-Grid Readout -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<!-- Priority Proxy Card -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Visual-Priority Proxy</span>
+<span class="material-symbols-outlined text-tertiary text-lg">flag</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface" id="priority-label">Medium Review Priority</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug" id="priority-desc">
+                  Clear or extended crack-like evidence visible on surface. Does not indicate structural severity.
+                </p>
+</div>
+</div>
+<!-- Image Quality Verification Card -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Image Quality Status</span>
+<span class="material-symbols-outlined text-primary text-lg">verified</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface" id="quality-label">Acceptable</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-mono mt-1 leading-snug" id="quality-desc">
+                  Contrast SNR: 18.4 dB • Sharpness Score: 0.82 • Exposure: Balanced
+                </p>
+</div>
+</div>
+</div>
+<!-- Recommended Next Civil Action Banner -->
+<div class="bg-secondary-fixed/50 p-space-md rounded-xl flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">assignment_turned_in</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-secondary-fixed font-bold">Recommended Civil Action</span>
+<p class="font-body-md text-body-md text-on-secondary-fixed font-medium mt-0.5" id="action-text">
+                Submit for expert inspection. Log surface coordinates for civil inspection team.
+              </p>
+</div>
+</div>
+<!-- Mini Evidence Dual-Pane Preview (Raw Surface vs Grad-CAM) -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-base text-primary">visibility</span>
+<span class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Explainable Evidence Preview</span>
+</div>
+<a class="font-label-sm text-label-sm text-primary hover:underline font-semibold flex items-center gap-1" href="#">
+                Open Full Evidence Viewer
+                <span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Raw Specimen Thumbnail -->
+<div class="flex flex-col gap-1">
+<div class="relative w-full h-36 rounded-lg overflow-hidden bg-surface-container-high group">
+<img class="w-full h-full object-cover" data-alt="Macro clear diagonal concrete surface fissure on aged concrete surface with aggregate fragments" id="evidence-raw-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtb5TLNiXv1rEtfBPjH03DxTIppJfPJly8WCtzpJF_TeLW-EuG44bYUwDWglnP-mqdHSouT-sG2WDCsdqlNe3mMBIPvuGcT_4A9dvNCiCMx1lNo8JNEUxwWBQwiP9pQse-Vj8VFT5_8PY3rkhsGWByVU1SraDjIoIdqWwhxb1mJVt8LackgGq97UIs-wb_eeJSZIZ7PGkowrnFSRxLihyY-zKTNnScG8q5oIOcgyBEzf0HD3_5T4xjtw"/>
+<span class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm font-mono text-on-surface">RAW SENSOR</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary text-center">Specimen Surface</span>
+</div>
+<!-- Grad-CAM Saliency Overlay Thumbnail -->
+<div class="flex flex-col gap-1">
+<div class="relative w-full h-36 rounded-lg overflow-hidden bg-surface-container-high group">
+<img class="w-full h-full object-cover" data-alt="Grad-CAM heat map saliency map glowing bright red and yellow along the exact linear crack trajectory overlaid on concrete background" id="evidence-cam-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTsxhtKbuXp2ZvxgbiHWTd_ILt3Z0km4eoQMp6U4K070zaKPYHu9D5k5_vOuRRMDnS_IsvhSSeC7kSHneoKVjjJkInm80DlNruqW3CRKEg6DI8gSvA4AD7wz26S3I6kJxuFbL2WZhHdXht5i6dF4L7HGMxvknFC6pSNqn5n_DDhhS4NkqpwNhgctZYIszYoRNg6S2MyxgSt5fU65-6LdhNoHVXBbJ-072AC-OkA5wtHNzjGXjfoIw-2g"/>
+<span class="absolute top-2 left-2 px-space-xs py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-mono">GRAD-CAM SALIENCY</span>
+<!-- Interactive Hover Heatmap Slider Indicator -->
+<div class="absolute bottom-2 right-2 px-space-xs py-0.5 rounded bg-surface-container-lowest/90 font-label-sm text-label-sm font-mono text-on-surface">
+                    Layer4 Conv
+                  </div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary text-center">Attention Activation</span>
+</div>
+</div>
+</div>
+<!-- API Integration Contract JSON Drawer -->
+<div class="flex flex-col gap-space-xs pt-1">
+<button class="flex items-center justify-between text-left w-full py-1 text-on-surface-variant hover:text-on-surface transition-colors" id="toggle-json-btn">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold font-mono flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">code</span>
+                API Schema Ingestion Contract (JSON Payload)
+              </span>
+<span class="material-symbols-outlined text-base transition-transform" id="json-chevron">expand_more</span>
+</button>
+<div class="hidden overflow-hidden rounded-lg bg-inverse-surface text-inverse-on-surface p-space-md font-label-sm text-label-sm transition-all" id="json-drawer">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-surface-variant/20">
+<span class="text-surface-dim font-mono text-xs">POST /api/v2.4/screen-surface • 200 OK</span>
+<button class="text-xs text-primary-fixed hover:text-inverse-on-surface transition-colors flex items-center gap-1 font-mono" id="copy-json-btn">
+<span class="material-symbols-outlined text-sm">content_copy</span> Copy
+                </button>
+</div>
+<pre class="font-mono text-xs overflow-x-auto text-primary-fixed-dim leading-relaxed"><code id="json-code">{
+  "specimen_id": "A-104",
+  "label": "potential_crack",
+  "probability": 0.874,
+  "threshold": 0.60,
+  "visual_priority": "medium",
+  "quality_status": "acceptable",
+  "metrics": {
+    "contrast_snr_db": 18.4,
+    "sharpness_index": 0.82,
+    "focal_plane_alignment_deg": 89.2
+  },
+  "review_recommendation": "Submit for expert inspection.",
+  "timestamp": "2026-03-29T10:14:22Z"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Supplementary Inline Statistical Calibration Summary Strip -->
+<div class="relative z-10 mt-space-lg bg-surface-container-low rounded-xl p-space-md grid grid-cols-2 md:grid-cols-4 gap-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Trained Calibration</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface font-mono">SDNET2018 + CCIC</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">56,000 Bridge &amp; Deck Patches</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Screening Sensitivity</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary font-mono">94.8% Recall</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tuned to minimize missed cracks</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Hard-Negative Reject Rate</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface font-mono">89.2% Specificity</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Stains &amp; shadow discrimination</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Protocol Level</span>
+<span class="font-headline-sm text-headline-sm font-bold text-tertiary font-mono">Level 1 Visual Only</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Non-Destructive Preliminary</span>
+</div>
+</div>
+</div>
+<!-- Interactive Demo Specimen & Analysis Switcher Scripts -->
+<script>
+    (function initConcreteGuardScreeningLab() {
+      const demoData = {
+        'A-104': {
+          id: '#A-104 (Deck Pier Section 3B)',
+          badgeText: 'Potential Crack Detected',
+          badgeClass: 'bg-error-container text-on-error-container',
+          score: 87.4,
+          probString: 'p = 0.874',
+          priority: 'Medium Review Priority',
+          priorityDesc: 'Clear or extended crack-like evidence visible on surface. Does not indicate structural severity.',
+          quality: 'Acceptable',
+          qualityDesc: 'Contrast SNR: 18.4 dB • Sharpness Score: 0.82 • Exposure: Balanced',
+          action: 'Submit for expert inspection. Log surface coordinates for civil inspection team.',
+          jsonLabel: 'potential_crack',
+          jsonProb: 0.874,
+          jsonPriority: 'medium',
+          jsonQuality: 'acceptable'
+        },
+        'B-219': {
+          id: '#B-219 (Prestressed Beam Web)',
+          badgeText: 'Potential Crack (Borderline)',
+          badgeClass: 'bg-tertiary-fixed text-on-tertiary-fixed',
+          score: 64.1,
+          probString: 'p = 0.641',
+          priority: 'Low Review Priority',
+          priorityDesc: 'Hairline pattern near threshold boundary. Cross-validation with multi-angle capture recommended.',
+          quality: 'Acceptable',
+          qualityDesc: 'Contrast SNR: 15.2 dB • Sharpness Score: 0.74 • Ambient High',
+          action: 'Schedule secondary screening pass. Monitor for propagation under live load.',
+          jsonLabel: 'potential_crack_hairline',
+          jsonProb: 0.641,
+          jsonPriority: 'low',
+          jsonQuality: 'acceptable'
+        },
+        'HN-04': {
+          id: '#HN-04 (Abutment Drainage Surface)',
+          badgeText: 'No Crack Pattern Detected',
+          badgeClass: 'bg-surface-container-high text-on-surface',
+          score: 14.2,
+          probString: 'p = 0.142',
+          priority: 'Negative Baseline',
+          priorityDesc: 'Surface stain & moisture leaching runoff. Saliency shows no structural discontinuity.',
+          quality: 'Acceptable',
+          qualityDesc: 'Contrast SNR: 16.8 dB • Sharpness Score: 0.79 • High Surface Staining',
+          action: 'No priority crack inspection warranted. Recommend routine cleaning & efflorescence check.',
+          jsonLabel: 'non_crack_surface_stain',
+          jsonProb: 0.142,
+          jsonPriority: 'none',
+          jsonQuality: 'acceptable'
+        },
+        'HN-12': {
+          id: '#HN-12 (Pavement Expansion Joint)',
+          badgeText: 'No Crack (Engineered Joint)',
+          badgeClass: 'bg-surface-container-high text-on-surface',
+          score: 8.7,
+          probString: 'p = 0.087',
+          priority: 'Negative Baseline',
+          priorityDesc: 'Identified as intentional construction / expansion saw-cut with uniform profile.',
+          quality: 'Acceptable',
+          qualityDesc: 'Contrast SNR: 21.0 dB • Sharpness Score: 0.88 • High Uniformity',
+          action: 'No action required. Sealant integrity within routine maintenance parameters.',
+          jsonLabel: 'engineered_joint',
+          jsonProb: 0.087,
+          jsonPriority: 'none',
+          jsonQuality: 'acceptable'
+        },
+        'HN-31': {
+          id: '#HN-31 (Column Shadow Artifact)',
+          badgeText: 'No Crack (Filtered Shadow)',
+          badgeClass: 'bg-secondary-fixed text-on-secondary-fixed',
+          score: 38.5,
+          probString: 'p = 0.385',
+          priority: 'Shadow Reject',
+          priorityDesc: 'High-contrast lighting shadow successfully separated by dual-frequency spatial filter.',
+          quality: 'Sub-Optimal Contrast',
+          qualityDesc: 'Contrast SNR: 11.2 dB (Shadow Clipping) • Sharpness Score: 0.81',
+          action: 'Re-capture during diffuse twilight or overcast illumination to confirm clear baseline.',
+          jsonLabel: 'shadow_artifact_suppressed',
+          jsonProb: 0.385,
+          jsonPriority: 'none',
+          jsonQuality: 'sub_optimal'
+        },
+        'DG-08': {
+          id: '#DG-08 (Vibration Blur Capture)',
+          badgeText: 'Quality Flag Triggered',
+          badgeClass: 'bg-error-container text-on-error-container',
+          score: 49.0,
+          probString: 'p = 0.490 [Unreliable]',
+          priority: 'Inconclusive Screening',
+          priorityDesc: 'Image blur exceeds MTF threshold limit (0.32). Prediction suppressed to prevent false diagnosis.',
+          quality: 'Degraded (Rejected)',
+          qualityDesc: 'Contrast SNR: 07.1 dB • Sharpness Score: 0.28 (FAIL) • High Motion Smear',
+          action: 'Recapture required: Stabilize sensor with clamp or use high-speed shutter (>1/500s).',
+          jsonLabel: 'quality_fail_inconclusive',
+          jsonProb: 0.490,
+          jsonPriority: 'inconclusive',
+          jsonQuality: 'degraded_reject'
+        }
+      };
+
+      const demoButtons = document.querySelectorAll('.demo-card');
+      const activeSpecimenIdEl = document.getElementById('active-specimen-id');
+      const statusBadgeEl = document.getElementById('status-badge');
+      const statusTextEl = document.getElementById('status-text');
+      const confidenceNumberEl = document.getElementById('confidence-number');
+      const confidenceBarEl = document.getElementById('confidence-bar');
+      const priorityLabelEl = document.getElementById('priority-label');
+      const priorityDescEl = document.getElementById('priority-desc');
+      const qualityLabelEl = document.getElementById('quality-label');
+      const qualityDescEl = document.getElementById('quality-desc');
+      const actionTextEl = document.getElementById('action-text');
+      const jsonCodeEl = document.getElementById('json-code');
+      const toggleJsonBtn = document.getElementById('toggle-json-btn');
+      const jsonDrawer = document.getElementById('json-drawer');
+      const jsonChevron = document.getElementById('json-chevron');
+      const copyJsonBtn = document.getElementById('copy-json-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      const analyzeBtn = document.getElementById('analyze-btn');
+
+      // Demo selector click
+      demoButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          demoButtons.forEach(b => {
+            b.classList.remove('bg-surface-container-high', 'active');
+            b.classList.add('bg-surface-container-low');
+          });
+          btn.classList.remove('bg-surface-container-low');
+          btn.classList.add('bg-surface-container-high', 'active');
+
+          const specimenKey = btn.getAttribute('data-specimen');
+          const data = demoData[specimenKey];
+          if (!data) return;
+
+          // Update View
+          activeSpecimenIdEl.textContent = data.id;
+          statusTextEl.textContent = data.badgeText;
+          statusBadgeEl.className = 'px-space-md py-1.5 rounded-lg flex items-center gap-space-xs self-start sm:self-auto shadow-sm ' + data.badgeClass;
+
+          confidenceNumberEl.textContent = data.score.toFixed(1) + '%';
+          confidenceBarEl.style.width = data.score + '%';
+
+          priorityLabelEl.textContent = data.priority;
+          priorityDescEl.textContent = data.priorityDesc;
+
+          qualityLabelEl.textContent = data.quality;
+          qualityDescEl.textContent = data.qualityDesc;
+
+          actionTextEl.textContent = data.action;
+
+          // Update JSON Output
+          const payload = {
+            specimen_id: specimenKey,
+            label: data.jsonLabel,
+            probability: data.jsonProb,
+            threshold: 0.60,
+            visual_priority: data.jsonPriority,
+            quality_status: data.jsonQuality,
+            metrics: {
+              contrast_snr_db: parseFloat(data.qualityDesc.match(/SNR:\s*([\d\.]+)/)?.[1] || 15.0),
+              sharpness_index: parseFloat(data.qualityDesc.match(/Score:\s*([\d\.]+)/)?.[1] || 0.70)
+            },
+            review_recommendation: data.action,
+            timestamp: new Date().toISOString()
+          };
+          jsonCodeEl.textContent = JSON.stringify(payload, null, 2);
+        });
+      });
+
+      // JSON toggle accordion
+      toggleJsonBtn.addEventListener('click', () => {
+        const isHidden = jsonDrawer.classList.contains('hidden');
+        if (isHidden) {
+          jsonDrawer.classList.remove('hidden');
+          jsonChevron.style.transform = 'rotate(180deg)';
+        } else {
+          jsonDrawer.classList.add('hidden');
+          jsonChevron.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Copy JSON button
+      copyJsonBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(jsonCodeEl.textContent).then(() => {
+          const original = copyJsonBtn.innerHTML;
+          copyJsonBtn.innerHTML = '<span class="material-symbols-outlined text-sm">done</span> Copied!';
+          setTimeout(() => {
+            copyJsonBtn.innerHTML = original;
+          }, 1800);
+        });
+      });
+
+      // Analyze Button visual trigger feedback
+      analyzeBtn.addEventListener('click', () => {
+        const originalText = analyzeBtn.innerHTML;
+        analyzeBtn.innerHTML = '<span class="w-4 h-4 border-2 border-on-primary border-t-transparent rounded-full animate-spin"></span> Running Dual-Inference...';
+        analyzeBtn.classList.add('opacity-90');
+        setTimeout(() => {
+          analyzeBtn.innerHTML = originalText;
+          analyzeBtn.classList.remove('opacity-90');
+        }, 600);
+      });
+
+      // Reset Button reset to default #A-104
+      resetBtn.addEventListener('click', () => {
+        demoButtons[0].click();
+      });
+
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] mt-space-xl"><div class="w-full px-margin-desktop py-space-lg flex flex-col gap-space-md"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md"><div class="flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">ConcreteGuard AI</span><span class="font-label-sm text-label-sm text-primary px-space-xs py-0.5 bg-surface-container-high rounded font-mono">SDNET2018 / CCIC Benchmarked</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">Automated crack pattern segmentation and Grad-CAM interpretability pipeline developed for JIGNASA 2026 Civil AI Hackathon. Calibrated strictly for surface screening triages.</p></div><div class="flex flex-wrap items-center gap-space-md font-label-sm text-label-sm text-on-surface-variant"><span class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Grad-CAM v1.2</span><span class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Dual ResNet-50 / ConvNeXt Backbone</span><span class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Hard-Negative Filtering Engaged</span></div></div><div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-secondary"><span class="material-symbols-outlined text-sm">gavel</span><span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold text-on-surface">Non-Structural Diagnostic Notice:</span><span class="font-body-sm text-body-sm text-on-surface-variant">Outputs are auxiliary spatial inferences and do not substitute for stamp-certified NDT ultrasonic pulse or load tests.</span></div><span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Status ID: CG-JG26-VERIFIED</span></div><div class="flex flex-col md:flex-row items-center justify-between gap-space-sm pt-space-xs font-label-sm text-label-sm text-on-surface-variant"><div>© 2026 ConcreteGuard Consortium • JIGNASA 2026 Civil Engineering AI Track</div><div class="flex items-center gap-space-md"><span class="hover:text-on-surface transition-colors cursor-pointer">Inference Telemetry</span><span class="hover:text-on-surface transition-colors cursor-pointer">Safety Guidelines</span><span class="hover:text-on-surface transition-colors cursor-pointer">Benchmark Calibration</span></div></div></div></footer></body></html>
